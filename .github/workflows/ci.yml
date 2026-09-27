@@ -23,7 +23,9 @@ jobs:
           pip install fastapi uvicorn pydantic pandas numpy scikit-learn xgboost shap pytest httpx
 
       - name: Run tests
-        run: pytest -q
+        env:
+        PYTHONPATH: .
+        run: python -m pytest -q
 
   docker:
     runs-on: ubuntu-latest
