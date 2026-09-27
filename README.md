@@ -3,10 +3,10 @@
 ## Screenshots
 
 ### Low Risk Prediction
-![Low Risk Prediction](assets/screenshots/risklens-low-risk.png)
+![Low Risk Prediction](assets/risklens-low-risk.png)
 
 ### High Risk Prediction
-![High Risk Prediction](assets/screenshots/risklens-high-risk.png)
+![High Risk Prediction](assets/risklens-high-risk.png)
 
 ## What It Does
 
