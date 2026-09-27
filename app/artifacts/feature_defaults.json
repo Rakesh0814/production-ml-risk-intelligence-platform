@@ -1,0 +1,19 @@
+{
+  "status": 4.0,
+  "duration": 18.0,
+  "credit_history": 2.0,
+  "purpose": 3.0,
+  "amount": 2264.0,
+  "savings": 1.0,
+  "employment_duration": 3.0,
+  "installment_rate": 4.0,
+  "other_debtors": 1.0,
+  "present_residence": 4.0,
+  "property": 3.0,
+  "other_installment_plans": 3.0,
+  "housing": 2.0,
+  "number_credits": 1.0,
+  "job": 3.0,
+  "people_liable": 2.0,
+  "telephone": 1.0
+}

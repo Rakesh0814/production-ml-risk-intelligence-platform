@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RiskLens | ML Risk Intelligence</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">R</div>
+      <div>
+        <strong>RiskLens</strong>
+        <span>ML Risk Intelligence</span>
+      </div>
+    </div>
+    <div id="modelBadge" class="model-badge">Checking model...</div>
+  </header>
+
+  <main class="layout">
+    <section class="intro">
+      <div>
+        <div class="eyebrow">PRODUCTION ML · CREDIT RISK</div>
+        <h1>Decision intelligence<br>for credit risk.</h1>
+        <p>
+          Score default risk with an XGBoost model, inspect SHAP drivers,
+          and expose predictions through a production-style FastAPI service.
+        </p>
+      </div>
+      <div class="intro-stats">
+        <div><span>Model</span><strong>XGBoost</strong></div>
+        <div><span>Explainability</span><strong>SHAP</strong></div>
+        <div><span>Data Pipeline</span><strong>PySpark</strong></div>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <form id="riskForm" class="panel form-panel">
+        <div class="panel-title">
+          <div>
+            <span class="step">01</span>
+            <h2>Applicant & Credit Profile</h2>
+          </div>
+          <p>Enter coded values from the South German Credit schema.</p>
+        </div>
+
+        <div class="form-grid">
+          <label>
+            Credit amount (DM)
+            <input name="amount" type="number" value="3000" min="100" required />
+          </label>
+
+          <label>
+            Duration (months)
+            <input name="duration" type="number" value="24" min="1" max="72" required />
+          </label>
+
+          <label>
+            Checking account
+            <select name="status">
+              <option value="1">No checking account</option>
+              <option value="2">&lt; 0 DM</option>
+              <option value="3" selected>0–200 DM</option>
+              <option value="4">≥ 200 DM / salary account</option>
+            </select>
+          </label>
+
+          <label>
+            Credit history
+            <select name="credit_history">
+              <option value="0">Past payment delays</option>
+              <option value="1">Critical / other credits</option>
+              <option value="2">No credits / all duly repaid</option>
+              <option value="3" selected>Existing credits paid duly</option>
+              <option value="4">All bank credits paid duly</option>
+            </select>
+          </label>
+
+          <label>
+            Purpose
+            <select name="purpose">
+              <option value="0">Other</option>
+              <option value="1">New car</option>
+              <option value="2">Used car</option>
+              <option value="3" selected>Furniture / equipment</option>
+              <option value="4">Radio / television</option>
+              <option value="5">Domestic appliances</option>
+              <option value="6">Repairs</option>
+              <option value="7">Education</option>
+              <option value="8">Vacation</option>
+              <option value="9">Retraining</option>
+              <option value="10">Business</option>
+            </select>
+          </label>
+
+          <label>
+            Savings
+            <select name="savings">
+              <option value="1">Unknown / none</option>
+              <option value="2">&lt; 100 DM</option>
+              <option value="3" selected>100–500 DM</option>
+              <option value="4">500–1000 DM</option>
+              <option value="5">≥ 1000 DM</option>
+            </select>
+          </label>
+
+          <label>
+            Employment duration
+            <select name="employment_duration">
+              <option value="1">Unemployed</option>
+              <option value="2">&lt; 1 year</option>
+              <option value="3" selected>1–4 years</option>
+              <option value="4">4–7 years</option>
+              <option value="5">≥ 7 years</option>
+            </select>
+          </label>
+
+          <label>
+            Installment burden
+            <select name="installment_rate">
+              <option value="1">≥ 35%</option>
+              <option value="2">25–35%</option>
+              <option value="3" selected>20–25%</option>
+              <option value="4">&lt; 20%</option>
+            </select>
+          </label>
+        </div>
+
+        <details class="advanced">
+          <summary>Advanced credit attributes</summary>
+          <div class="form-grid advanced-grid">
+            <label>Other debtors
+              <select name="other_debtors">
+                <option value="1" selected>None</option>
+                <option value="2">Co-applicant</option>
+                <option value="3">Guarantor</option>
+              </select>
+            </label>
+
+            <label>Present residence
+              <select name="present_residence">
+                <option value="1">&lt; 1 year</option>
+                <option value="2">1–4 years</option>
+                <option value="3" selected>4–7 years</option>
+                <option value="4">≥ 7 years</option>
+              </select>
+            </label>
+
+            <label>Property
+              <select name="property">
+                <option value="1">Unknown / none</option>
+                <option value="2">Car / other</option>
+                <option value="3" selected>Savings agreement / insurance</option>
+                <option value="4">Real estate</option>
+              </select>
+            </label>
+
+            <label>Other installment plans
+              <select name="other_installment_plans">
+                <option value="1">Bank</option>
+                <option value="2">Stores</option>
+                <option value="3" selected>None</option>
+              </select>
+            </label>
+
+            <label>Housing
+              <select name="housing">
+                <option value="1">Free</option>
+                <option value="2">Rent</option>
+                <option value="3" selected>Own</option>
+              </select>
+            </label>
+
+            <label>Number of bank credits
+              <select name="number_credits">
+                <option value="1" selected>1</option>
+                <option value="2">2–3</option>
+                <option value="3">4–5</option>
+                <option value="4">≥ 6</option>
+              </select>
+            </label>
+
+            <label>Job
+              <select name="job">
+                <option value="1">Unemployed / unskilled non-resident</option>
+                <option value="2">Unskilled resident</option>
+                <option value="3" selected>Skilled employee / official</option>
+                <option value="4">Manager / self-employed / highly qualified</option>
+              </select>
+            </label>
+
+            <label>Dependants
+              <select name="people_liable">
+                <option value="1">3 or more</option>
+                <option value="2" selected>0–2</option>
+              </select>
+            </label>
+
+            <label>Registered telephone
+              <select name="telephone">
+                <option value="1">No</option>
+                <option value="2" selected>Yes</option>
+              </select>
+            </label>
+          </div>
+        </details>
+
+        <button class="primary" type="submit">
+          Run risk assessment <span>→</span>
+        </button>
+
+        <p class="ethics-note">
+          Portfolio demonstration only. Sensitive attributes such as age,
+          sex/personal-status coding, and foreign-worker status are excluded
+          from the model feature set.
+        </p>
+      </form>
+
+      <section class="panel result-panel">
+        <div class="panel-title">
+          <div>
+            <span class="step">02</span>
+            <h2>Risk Intelligence</h2>
+          </div>
+          <p>Probability, risk band, and local SHAP drivers.</p>
+        </div>
+
+        <div class="risk-summary">
+          <div id="riskDial" class="risk-dial">
+            <div class="dial-inner">
+              <span>Default risk</span>
+              <strong id="riskProbability">—</strong>
+            </div>
+          </div>
+
+          <div class="risk-copy">
+            <span id="riskBand" class="risk-band neutral">WAITING</span>
+            <h3 id="predictionText">No assessment yet</h3>
+            <p id="repaymentText">Complete the form and run the model.</p>
+          </div>
+        </div>
+
+        <div class="metrics">
+          <div><span>ROC-AUC</span><strong id="aucMetric">—</strong></div>
+          <div><span>F1</span><strong id="f1Metric">—</strong></div>
+          <div><span>Accuracy</span><strong id="accuracyMetric">—</strong></div>
+        </div>
+
+        <div class="drivers">
+          <div class="drivers-heading">
+            <h3>Top decision drivers</h3>
+            <span>SHAP local explanation</span>
+          </div>
+          <div id="driversList" class="drivers-list">
+            <div class="empty-state">No explanation available yet.</div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="architecture">
+      <div class="arch-card"><span>01</span><strong>UCI Dataset</strong><small>South German Credit</small></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-card"><span>02</span><strong>PySpark ETL</strong><small>Validation + feature pipeline</small></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-card"><span>03</span><strong>XGBoost</strong><small>Default-risk model</small></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-card"><span>04</span><strong>SHAP</strong><small>Explainability</small></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-card"><span>05</span><strong>FastAPI</strong><small>Prediction service</small></div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

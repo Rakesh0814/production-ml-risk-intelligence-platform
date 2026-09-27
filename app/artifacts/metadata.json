@@ -1,0 +1,16 @@
+{
+  "model": "XGBoost",
+  "dataset": "UCI South German Credit",
+  "dataset_rows": 1000,
+  "features": 17,
+  "sensitive_features_excluded": [
+    "personal_status_sex",
+    "age",
+    "foreign_worker"
+  ],
+  "roc_auc": 0.7919,
+  "accuracy": 0.796,
+  "f1": 0.6331,
+  "precision": 0.6875,
+  "recall": 0.5867
+}

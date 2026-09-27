@@ -1,0 +1,19 @@
+[
+  "status",
+  "duration",
+  "credit_history",
+  "purpose",
+  "amount",
+  "savings",
+  "employment_duration",
+  "installment_rate",
+  "other_debtors",
+  "present_residence",
+  "property",
+  "other_installment_plans",
+  "housing",
+  "number_credits",
+  "job",
+  "people_liable",
+  "telephone"
+]
